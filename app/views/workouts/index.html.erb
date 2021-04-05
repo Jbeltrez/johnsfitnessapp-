@@ -1,0 +1,4 @@
+<h1>A List of all your Workouts</h1>
+<% @workouts.each do |w| %> 
+    <%= link_to w.name, workout_path(w) %> 
+<% end %>
