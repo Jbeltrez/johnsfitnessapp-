@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
     # @ models = Model.all
     def index 
-        @workouts = Workout.all 
+        # @workouts = Workout.all 
         # STILL NEED TO FIGURE OUT WHAT 
         # ATTRIBUTES YOU WANT TO SEARCH FOR 
         # TAG/ GROUP?= WEIGHT LOSS/CARDIO/STRENGTH/ WARMUP

@@ -1,9 +1,10 @@
-<%= form_for(@user) do |f| %> 
+<%= render partial: "layouts/errors", locals: {object: @user} %>
+<%= form_for(@user, url:'/signup') do |f| %>
 <%= f.label :name %> 
-<%= f.text_field :name %> 
+<%= f.text_field :name %><br>
 <%= f.label :username %> 
-<%= f.text_field :username %> 
+<%= f.text_field :username %><br>
 <%= f.label :password %> 
-<%= f.text_field :password %> 
-<%= f.submit %> 
+<%= f.password_field :password %><br>
+<%= f.submit "Signup" %> 
 <% end %> 

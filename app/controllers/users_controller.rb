@@ -5,15 +5,14 @@ class UsersController < ApplicationController
     end
 
     def create 
-        @user = User.create(users_params)
-        if @user.errors.any? 
-            @error_messages = @user.errors.full_messages.join(', ')
-            render :new 
-        else 
-
+        @user = User.new(users_params)
+        if @user.save
+            session[:user_id] = @user.id
             redirect_to user_path(@user)
+        else 
+            flash[:errors] = @user.errors.full_messages.join(', ')
+            render :new 
         end
-        
     end
 
     def show 
