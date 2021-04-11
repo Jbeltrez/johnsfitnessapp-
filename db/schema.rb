@@ -10,14 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_015317) do
+ActiveRecord::Schema.define(version: 2021_04_11_045717) do
 
   create_table "exercises", force: :cascade do |t|
     t.string "name"
     t.string "quantity"
     t.integer "difficulty_level"
+    t.integer "user_id"
+    t.integer "workout_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_exercises_on_user_id"
+    t.index ["workout_id"], name: "index_exercises_on_workout_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,14 +37,12 @@ ActiveRecord::Schema.define(version: 2021_04_04_015317) do
   create_table "workouts", force: :cascade do |t|
     t.string "name"
     t.integer "num_sets"
-    t.integer "user_id"
-    t.integer "exercise_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["exercise_id"], name: "index_workouts_on_exercise_id"
-    t.index ["user_id"], name: "index_workouts_on_user_id"
+    t.string "group"
+    t.datetime "date_of_workout"
   end
 
-  add_foreign_key "workouts", "exercises"
-  add_foreign_key "workouts", "users"
+  add_foreign_key "exercises", "users"
+  add_foreign_key "exercises", "workouts"
 end

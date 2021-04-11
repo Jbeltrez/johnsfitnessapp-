@@ -13,14 +13,12 @@
     <nav>
       
       <% if logged_in? %>
-        <%= link_to "My Workouts", my_workouts_path %>
+        <%# <%= link_to "My Workouts", my_workouts_path %> %>
         <%= link_to "Logout",  logout_path %>
       <% else %>
-      <p>Sign up or Login<p>
         <%= link_to "Login",  login_path %>
         <%= link_to "Sign up", new_user_path %>
       <% end %>
-      
     </nav>
 
     <%# <% if flash[:errors] %>

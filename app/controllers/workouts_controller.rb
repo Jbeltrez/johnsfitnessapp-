@@ -22,6 +22,30 @@ class WorkoutsController < ApplicationController
     end
 
     def create 
+        @workout = Workout.new(name: params[:name])
 
+        if @workout.save 
+            redirect_to workout_path(@workout)
+        else 
+            flash[:error] = @workout.errors.full_messages.join(', ')
+            render :new
+        end
+
+        
+            # add the attribute input field to form 
+            # table 
+            # method is gonna do something that 
+            # Workout.where(workout_date < Date.today +7)) 
+            # add this to a variable and iterate over for the 
+            # days of the week 
+
+            # then use active record order methods 
+            # display the attr as the date 
+            # then use input tag 
     end
+
+    def show 
+    
+    end
+
 end 
