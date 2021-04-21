@@ -1,8 +1,8 @@
-<%= form_for(@workout) do |f| %> 
+<%= form_for @workout do |f| %> 
 <%= f.label :group %> 
-<%= f.text_field :name %> 
+<%= f.text_field :group %> 
 <%= f.label :date_of_workout %>
-<%= f.text_field :date_of_workout, "data-provide" => 'datepicker' %>
+<%= f.date_field :date_of_workout, value: Date.today %>
 
 <%= f.submit %> 
 <% end %> 

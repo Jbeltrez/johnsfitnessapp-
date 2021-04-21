@@ -18,12 +18,14 @@ class WorkoutsController < ApplicationController
     end
 
     def new
+
         @workout = current_user.workouts.new 
     end
 
     def create 
-        @workout = Workout.new(name: params[:name])
 
+        @workout = Workout.new(workout_params)
+        binding.pry 
         if @workout.save 
             redirect_to workout_path(@workout)
         else 
@@ -46,6 +48,11 @@ class WorkoutsController < ApplicationController
 
     def show 
     
+    end
+    private 
+
+    def workout_params 
+        params.require(:workout).permit(:group, :date_of_workout)
     end
 
 end 
