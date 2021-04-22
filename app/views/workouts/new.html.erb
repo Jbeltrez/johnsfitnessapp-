@@ -1,8 +1,46 @@
-<%= form_for @workout do |f| %> 
+<%= form_for @workout do |f| %>
+    <%= f.label :workout_name %> 
+    <%= f.text_field :name %> 
+
+    <%= f.select :category_id, options_for_select(Category.pluck(:name, :id).sort) %> 
+  
+  <!-- <%= f.submit %> -->
+
+  <%= f.fields_for :exercises do |ff| %>
+    <%= ff.label :name %> 
+    <%= ff.text_field :name %> 
+    <%= ff.label :quantity %> 
+    <%= ff.text_field :quantity %> 
+    <%= ff.label :difficulty_level %> 
+    <%= ff.text_field :difficulty_level %>
+
+  <% end %>
+  <%= f.submit %> 
+<% end %> 
+
+
+<!-- <%= form_for @workout do |f| %> 
 <%= f.label :group %> 
 <%= f.text_field :group %> 
 <%= f.label :date_of_workout %>
-<%= f.date_field :date_of_workout, value: Date.today %>
+<%= f.date_field :date_of_workout, value: Date.today %> -->
 
-<%= f.submit %> 
+<!-- use the below if you want to render a drop down for a user to just pick a category -->
+<!-- <%= form_for @workout do |f| %>
+  <%= f.collection_select :category_name, Category.all, :name, :name %>
+
+  <%= f.submit %>
+<% end %> -->
+
+<!-- <%= f.submit %> 
 <% end %> 
+<%= form_for @workout do |f| %>
+  <%= f.text_field :category_name, list: "categories_autocomplete" %>
+  <datalist id="categories_autocomplete">
+    <% Category.all.each do |category| %>
+      <option value="<%= category.name %>">
+    <% end %>
+  </datalist>
+  <textarea name="workout[content]"></textarea>
+  <%= f.submit %>
+<% end %>  -->

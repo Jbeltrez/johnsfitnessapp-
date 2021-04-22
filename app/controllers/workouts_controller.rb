@@ -20,16 +20,17 @@ class WorkoutsController < ApplicationController
     def new
 
         @workout = current_user.workouts.new 
+        @workout.exercises.build()
     end
 
     def create 
 
-        @workout = Workout.new(workout_params)
-        binding.pry 
+        @workout = current_user.workouts.new(workout_params)
+        
         if @workout.save 
             redirect_to workout_path(@workout)
         else 
-            flash[:error] = @workout.errors.full_messages.join(', ')
+            flash[:notice] = @workout.errors.full_messages.join(', ')
             render :new
         end
 
@@ -47,12 +48,14 @@ class WorkoutsController < ApplicationController
     end
 
     def show 
+        @workout = Workout.find(params[:id])
     
     end
     private 
 
     def workout_params 
-        params.require(:workout).permit(:group, :date_of_workout)
+        params.require(:workout).permit(:name, :category_id, exercises_attributes: [:name, :quantity, :difficulty_level])
+
     end
 
 end 
