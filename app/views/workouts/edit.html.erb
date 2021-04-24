@@ -1,0 +1,26 @@
+<%= form_for(@workout) do |f| %> 
+<%= form_for @workout do |f| %>
+    <%= f.label :workout_name %> 
+    <%= f.text_field :name %> 
+
+    <%= f.label :workout_category %>
+    <%= f.select :category_id, options_for_select(Category.pluck(:name, :id).sort) %><br>
+    
+    <select name="cars" id="cars">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+      </select>
+    <h2>Input exercises for this workout</h2>
+    
+        <%= f.fields_for :exercises do |ff| %>
+            <%= ff.label :name %><br>
+            <%= ff.text_field :name %><br> 
+            <%= ff.label :quantity %><br>
+            <%= ff.text_field :quantity %><br> 
+            <%= ff.label :difficulty_level %><br> 
+            <%= ff.text_field :difficulty_level %><br>
+        <% end %> 
+ 
+  <%= f.submit %> 

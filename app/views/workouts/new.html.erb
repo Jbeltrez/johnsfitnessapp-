@@ -1,22 +1,39 @@
+<h2>Give your workout a name </h2>
 <%= form_for @workout do |f| %>
     <%= f.label :workout_name %> 
     <%= f.text_field :name %> 
 
-    <%= f.select :category_id, options_for_select(Category.pluck(:name, :id).sort) %> 
-  
-  <!-- <%= f.submit %> -->
+    <%= f.label :workout_category %>
+    <%= f.select :category_id, options_for_select(Category.pluck(:name, :id).sort) %><br>
+    
+    <select name="cars" id="cars">
+        <option value="">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+      </select>
+    <h2>Input exercises for this workout</h2>
 
-  <%= f.fields_for :exercises do |ff| %>
-    <%= ff.label :name %> 
-    <%= ff.text_field :name %> 
-    <%= ff.label :quantity %> 
-    <%= ff.text_field :quantity %> 
-    <%= ff.label :difficulty_level %> 
-    <%= ff.text_field :difficulty_level %>
+        <%= f.fields_for :exercises do |ff| %>
+            <%= ff.label :name %><br>
+            <%= ff.text_field :name %><br> 
+            <%= ff.label :quantity %><br>
+            <%= ff.text_field :quantity %><br> 
+            <select name="quantity_type" id="quantity_type" >
+              <option value="reps">reps</option>
+              <option value="seconds">seconds</option>
+              <option value="feet">feet</option>
+              <option value="yards">yards</option>
+            </select><br>
+            <%= ff.label :sets %><br>
+            <%= ff.number_field :sets %><br>
+            <%= ff.label :difficulty_level %><br> 
+            <%= ff.text_field :difficulty_level %><br>
 
-  <% end %>
+         <% end %>
   <%= f.submit %> 
-<% end %> 
+  <% end %> 
+
 
 
 <!-- <%= form_for @workout do |f| %> 

@@ -1,6 +1,7 @@
 <h1><%= @workout.name if @workout %></h1><br>
 <% @workout.exercises.each do |e| %>
-<%= e.name %><br>
+<%= e.name %><br><br>
 <% end %>
 <%= @workout.category.name %> 
+<%= link_to "Edit Workout", edit_workout_path(@workout) %>
 

@@ -13,12 +13,9 @@ class WorkoutsController < ApplicationController
         @workouts = Workout.all 
     end
 
-    def show 
-
-    end
-
     def new
 
+        # @eqt = Exercises.
         @workout = current_user.workouts.new 
         @workout.exercises.build()
     end
@@ -51,10 +48,26 @@ class WorkoutsController < ApplicationController
         @workout = Workout.find(params[:id])
     
     end
+
+    def edit 
+        @workout = Workout.find(params[:id])
+    end
+
+    def update 
+        @workout = Workout.update(workout_params)
+
+        if @workout.save 
+            redirect_to workout_path(@workout), info: "Workout was updated!"
+        else  
+            render :edit 
+        end 
+    end
+
     private 
 
     def workout_params 
-        params.require(:workout).permit(:name, :category_id, exercises_attributes: [:name, :quantity, :difficulty_level])
+        byebug 
+        params.require(:workout).permit(:name, :category_id, exercises_attributes: [:name, :quantity, :difficulty_level, :quantity_type])
 
     end
 
