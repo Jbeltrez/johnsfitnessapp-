@@ -9,10 +9,16 @@ class Exercise < ApplicationRecord
     # set rep schemes for that exercise? 
     # would that be a new model ? 
 
-    belongs_to :workout 
+    belongs_to :workout
+
+    def q_and_q_type 
+        q = self.quantity 
+        q_type = self.quantity_type
+        "#{q} #{q_type}"
+    end
     # belongs_to :user  
 
-    validates :name, presence: true
+    # validates :name, presence: true
     # validates :name, uniqueness: true
     # validates :difficulty_level, presence: true 
     # validates :quantity, presence: true 

@@ -23,6 +23,7 @@ gem 'turbolinks', '~> 5'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-datepicker-rails'
+gem 'pry', '~> 0.13.1'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

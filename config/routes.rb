@@ -10,7 +10,14 @@ Rails.application.routes.draw do
   get '/logout', to: "sessions#destroy"
   resources :users, only: [:show, :new, :edit, :update, :create]
 
-  resources :workouts
+  resources :workouts do 
+    resources :exercises
+  end
+
+  resources :categories do 
+    resources :exercises
+    resources :workouts 
+  end
   #only an index for a users workouts 
   #nested resource you want a workout 
   resources :exercises

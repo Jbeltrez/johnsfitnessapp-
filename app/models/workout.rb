@@ -6,12 +6,12 @@ class Workout < ApplicationRecord
     accepts_nested_attributes_for :exercises 
     validates :name, presence: true 
 
-    def category_name=(name)
-        self.category = Category.find_or_create_by(name: name)
+    # def category_name=(name)
+    #     self.category = Category.find_or_create_by(name: name)
 
-    end
+    # end
 
-    def category_name
-        self.category ? self.category.name : nil 
-    end
+    # def category_name
+    #     self.category ? self.category.name : nil 
+    # end
 end

@@ -1,0 +1,15 @@
+<!-- this form should babysit the workout.id in a hidden_input  -->
+<%= form_for(@exercise) do |f| %>
+<%= f.hidden_field :workout_id, value: @exercise.workout_id %> 
+
+<%= f.label :name%>
+<%= f.text_field :name%><br>
+<%= f.label :quantity %>
+<%= f.text_field :quantity %>
+<%= f.select :quantity_type, options_for_select([['reps', 'reps'], ['seconds', 'seconds'], ['feet', 'feet'], ['yards', 'yards']]) %><br>
+<%= f.label :sets %>
+<%= f.number_field :sets%><br>
+<%= f.label :difficulty_level %>
+<%= f.select :difficulty_level, options_for_select([['beginner', 'beginner'], ['intermediate', 'intermediate'], ['advanced', 'advanced']])%>
+<%= f.submit %> 
+<% end %> 

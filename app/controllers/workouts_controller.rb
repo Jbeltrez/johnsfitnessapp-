@@ -1,16 +1,13 @@
+
 class WorkoutsController < ApplicationController
     # @ models = Model.all
     def index 
-        # @workouts = Workout.all 
-        # STILL NEED TO FIGURE OUT WHAT 
-        # ATTRIBUTES YOU WANT TO SEARCH FOR 
-        # TAG/ GROUP?= WEIGHT LOSS/CARDIO/STRENGTH/ WARMUP
-        # LEG, ARM, BACK, STRETCH... 
-        # MAYBE A WORKOUT CAN HAVE MULTIPLE TAGS? 
-        # TAGS BE ANOTHER JOIN TABLE? WHICH WOULD BE A USER SUBMITTABLE ATTRIBUTE 
-        #however these shold only be 
-        # available to current_user 
-        @workouts = Workout.all 
+        if logged_in?
+            @workouts = current_user.workouts 
+        else 
+            flash[:error] = "You must be logged in to do that"
+            redirect_to root_path
+        end 
     end
 
     def new
@@ -18,6 +15,11 @@ class WorkoutsController < ApplicationController
         # @eqt = Exercises.
         @workout = current_user.workouts.new 
         @workout.exercises.build()
+        @workout.exercises.build()
+        @workout.exercises.build()
+        # @workout.exercises.build 
+        # form would contain hidden field 
+        # to save the value of the workout 
     end
 
     def create 
@@ -25,8 +27,9 @@ class WorkoutsController < ApplicationController
         @workout = current_user.workouts.new(workout_params)
         
         if @workout.save 
-            redirect_to workout_path(@workout)
+            redirect_to workouts_path 
         else 
+        #    binding.pry 
             flash[:notice] = @workout.errors.full_messages.join(', ')
             render :new
         end
@@ -54,7 +57,9 @@ class WorkoutsController < ApplicationController
     end
 
     def update 
-        @workout = Workout.update(workout_params)
+        # @workout = Workout.update(workout_params)
+        @workout.user = current_user 
+        @workout.update(workout_params)
 
         if @workout.save 
             redirect_to workout_path(@workout), info: "Workout was updated!"
@@ -63,11 +68,16 @@ class WorkoutsController < ApplicationController
         end 
     end
 
+    def destroy 
+        Workout.find(params[:id]).destroy 
+        redirect_to workouts_path, info: "Workout was deleted!"
+    end
+
     private 
 
     def workout_params 
-        byebug 
-        params.require(:workout).permit(:name, :category_id, exercises_attributes: [:name, :quantity, :difficulty_level, :quantity_type])
+        # binding.pry 
+        params.require(:workout).permit(:name, :date_of_workout, :category_id, exercises_attributes: [:name, :quantity, :difficulty_level, :quantity_type, :sets])
 
     end
 

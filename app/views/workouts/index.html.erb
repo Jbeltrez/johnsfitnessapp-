@@ -1,4 +1,31 @@
 <h1>A List of all your Workouts</h1>
-<% @workouts.each do |w| %> 
-    <%= link_to w.name, workout_path(w) %> 
-<% end %>
+how can i make it so that these delete 
+                    buttons do what i need but render the index page 
+                    if the exercise is deleted from the index page 
+                    ?? hidden input field? and if done from the 
+                    workout show page it renders the workout 
+                    show page 
+<p><%= link_to "Add a Workout", new_workout_path %>
+<% @workouts.each do |w|%>
+    <h2><u><%= link_to w.name.upcase, workout_path(w) %> <%= w.date_of_workout.strftime("%m/%d/%Y")%></u></h2>
+            <table>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Sets</th>
+                <th>Dificulty</th>
+            </tr>
+            <% w.exercises.each do |e| %>
+                <tr> 
+                    
+                    <td><%= e.name %> </td>
+                    <td><%= e.q_and_q_type %></td>
+                    <td><%= e.sets %> </td>
+                    <td><%= e.difficulty_level %> </td>
+                    <td><%= link_to "Edit", edit_exercise_path(e)%> | Delete </td>
+                </tr>
+            <% end %>
+            </table>
+            <%= link_to "Add Exercise", new_workout_exercise_path(w.id) %>
+       
+    <% end %>

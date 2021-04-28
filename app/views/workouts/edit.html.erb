@@ -1,26 +1,34 @@
-<%= form_for(@workout) do |f| %> 
+<% if flash[:notice] %> 
+ 
+<p style="background-color: green"><%= "There were some errors #{flash[:notice]}" %> 
+<% end %> 
+<h2>Workout </h2>
 <%= form_for @workout do |f| %>
     <%= f.label :workout_name %> 
-    <%= f.text_field :name %> 
+    <%= f.text_field :name %><br>
+    <%= f.label :workout_date %>
+     <%= f.date_field :date_of_workout, value: Date.today %><br>
 
     <%= f.label :workout_category %>
     <%= f.select :category_id, options_for_select(Category.pluck(:name, :id).sort) %><br>
     
-    <select name="cars" id="cars">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-      </select>
-    <h2>Input exercises for this workout</h2>
+    <h2>Exercises:</h2>
     
         <%= f.fields_for :exercises do |ff| %>
+            <%= ff.label "Exercise Number".upcase %> 
+            <%= ff.index+1 %><br> 
             <%= ff.label :name %><br>
             <%= ff.text_field :name %><br> 
             <%= ff.label :quantity %><br>
             <%= ff.text_field :quantity %><br> 
-            <%= ff.label :difficulty_level %><br> 
-            <%= ff.text_field :difficulty_level %><br>
-        <% end %> 
- 
+            <%= ff.select :quantity_type, options_for_select([['reps', 'reps'], ['seconds', 'seconds'], ['feet', 'feet'], ['yards', 'yards']]) %><br>
+            
+            <%= ff.label :sets %><br>
+            <%= ff.number_field :sets %><br>
+            <%= ff.label :difficulty_level %><br>
+            <%= ff.select :difficulty_level, options_for_select([['beginner', 'beginner'], ['intermediate', 'intermediate'], ['advanced', 'advanced']]) %> <br>
+            
+
+        <% end %>
   <%= f.submit %> 
+<% end %> 
