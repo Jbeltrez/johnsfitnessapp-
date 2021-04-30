@@ -6,3 +6,12 @@
 
 <%= link_to "Edit Workout", edit_workout_path(@workout) %>
 
+
+<%= form_tag('/workouts', method: :get) do %>
+    
+    <h3>Enter a color</h3>
+    <%= text_field_tag 'color' %>
+    <%= submit_tag %>
+<% end %>
+    
+

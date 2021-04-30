@@ -1,11 +1,16 @@
 <h1>A List of all your Workouts</h1>
-how can i make it so that these delete 
-                    buttons do what i need but render the index page 
-                    if the exercise is deleted from the index page 
-                    ?? hidden input field? and if done from the 
-                    workout show page it renders the workout 
-                    show page 
-<p><%= link_to "Add a Workout", new_workout_path %>
+ <h2><%= @color %> </h2>
+<p>
+    <%= link_to "View All Workouts", workouts_path %> 
+    <%= link_to "Add a Workout", new_workout_path %>
+</p>
+
+<p>
+    
+    <% Category.all.each do |c| %>
+        <%= link_to "View all your #{c.name} workouts", category_workouts_path(c) %> |
+    <% end %>
+</p>
 <% @workouts.each do |w|%>
     <h2><u><%= link_to w.name.upcase, workout_path(w) %> <%= w.date_of_workout.strftime("%m/%d/%Y")%></u></h2>
             <table>
@@ -22,10 +27,10 @@ how can i make it so that these delete
                     <td><%= e.q_and_q_type %></td>
                     <td><%= e.sets %> </td>
                     <td><%= e.difficulty_level %> </td>
-                    <td><%= link_to "Edit", edit_exercise_path(e)%> | Delete </td>
-                </tr>
+                    <td><%= link_to "Edit", edit_exercise_path(e)%> | <%= link_to "Delete", exercise_path(e), method: :delete %>  </td>
+                </tr> 
             <% end %>
             </table>
-            <%= link_to "Add Exercise", new_workout_exercise_path(w.id) %>
+            <%= link_to "Add Exercise", new_workout_exercise_path(w) %>
        
     <% end %>

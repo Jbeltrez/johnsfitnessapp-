@@ -1,3 +1,4 @@
+<%= render partial: "layouts/errors", locals: {object: @workout} %>
 <% if flash[:notice] %> 
  
 <span style="background-color: green"><%= "There were some errors #{flash[:notice]}" %> </span>
@@ -7,10 +8,10 @@
     <%= f.label :workout_name %> 
     <%= f.text_field :name %><br>
     <%= f.label :workout_date %>
-     <%= f.date_field :date_of_workout, value: Date.today %><br>
+     <%= f.date_field :date_of_workout %><br>
 
     <%= f.label :workout_category %>
-    <%= f.select :category_id, options_for_select(Category.pluck(:name, :id).sort) %><br>
+    <%= f.select :category_id, options_for_select(Category.pluck_name) %><br>
     
     <h2>Exercises:</h2>
 
