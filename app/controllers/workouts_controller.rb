@@ -1,25 +1,39 @@
 
 class WorkoutsController < ApplicationController
     # @ models = Model.all
+    before_action :set_workout, only: [:show, :update, :destroy, :edit]
+    before_action :require_login
     def index 
+        # binding.pry 
+        if params[:color]
+            @color = params[:color]
+        end
         if logged_in?
-            @workouts = current_user.workouts 
+            @workouts = current_user.workouts.by_date_ascend
+            if params[:category_id]
+                @category = Category.find_by(id: params[:category_id])
+                @workouts = @workouts.by_category(@category).by_date_ascend
+
+            end
         else 
             flash[:error] = "You must be logged in to do that"
             redirect_to root_path
         end 
     end
+    def custom 
+        # so this page should 
+        #use by_category scope method 
+        @category = Category.first 
+        @workouts = current_user.workouts 
+        @workoutss = @workouts.by_category(@category)
+
+    end
 
     def new
-
-        # @eqt = Exercises.
-        @workout = current_user.workouts.new 
-        @workout.exercises.build()
-        @workout.exercises.build()
-        @workout.exercises.build()
-        # @workout.exercises.build 
-        # form would contain hidden field 
-        # to save the value of the workout 
+            @workout = current_user.workouts.new 
+            3.times do 
+                @workout.exercises.build()
+            end 
     end
 
     def create 
@@ -47,17 +61,17 @@ class WorkoutsController < ApplicationController
             # then use input tag 
     end
 
-    def show 
-        @workout = Workout.find(params[:id])
+    def show
     
     end
 
     def edit 
-        @workout = Workout.find(params[:id])
+        
     end
 
     def update 
         # @workout = Workout.update(workout_params)
+        
         @workout.user = current_user 
         @workout.update(workout_params)
 
@@ -67,6 +81,7 @@ class WorkoutsController < ApplicationController
             render :edit 
         end 
     end
+   
 
     def destroy 
         Workout.find(params[:id]).destroy 
@@ -74,6 +89,10 @@ class WorkoutsController < ApplicationController
     end
 
     private 
+
+    def set_workout 
+        @workout = Workout.find(params[:id])
+    end
 
     def workout_params 
         # binding.pry 

@@ -1,11 +1,13 @@
 class ExercisesController < ApplicationController
-
+    before_action :require_login
     def new
+        
         # theres a workout id as a param 
         # if it exists than you assign 
         # that id to a workout instance variable 
-        @workout = Workout.find_by(id: params[:workout_id])
-        @exercise = @workout.exercises.build()
+        
+            @workout = Workout.find_by(id: params[:workout_id])
+            @exercise = @workout.exercises.build()
         
 
     end
@@ -30,13 +32,25 @@ class ExercisesController < ApplicationController
     end
 
     def update 
-        @exercise = Exercise.new 
+        @exercise = Exercise.find_by(id: params[:id])
+        @exercise.update(exercise_params)
+
+        if @exercise.save 
+            redirect_to workouts_path
+        else  
+            flash[:errors] = "There were some errors"
+            render :edit 
+        end 
 
 
 
     end
 
     def destroy 
+         
+            Exercise.find(params[:id]).destroy 
+            redirect_to workouts_path, info: "Workout was deleted!"
+    
 
     end
 

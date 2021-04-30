@@ -3,11 +3,13 @@ class UsersController < ApplicationController
     def new 
         @user = User.new 
     end
+    
+    
 
     def create 
         @user = User.new(users_params)
         if @user.save
-            session[:user_id] = @user.id
+            session[:user_idd] = @user.id
             redirect_to user_path(@user)
         else 
             flash[:errors] = @user.errors.full_messages.join(', ')
@@ -20,6 +22,11 @@ class UsersController < ApplicationController
     end
 
     private 
+
+    def auth
+        request.env['omniauth.auth']
+      end
+
     def users_params(*args)
         params.require(:user).permit(:name, :username, :password)
     end

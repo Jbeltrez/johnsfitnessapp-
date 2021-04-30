@@ -6,12 +6,8 @@ class Workout < ApplicationRecord
     accepts_nested_attributes_for :exercises 
     validates :name, presence: true 
 
-    # def category_name=(name)
-    #     self.category = Category.find_or_create_by(name: name)
-
-    # end
-
-    # def category_name
-    #     self.category ? self.category.name : nil 
-    # end
+    scope :by_category, -> (category){where(category: category)}
+    scope :by_date_ascend, -> {order(date_of_workout: :asc)}
+    
+    
 end
