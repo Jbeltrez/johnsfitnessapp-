@@ -11,8 +11,14 @@
 
   <body>
     <nav>
-      
-      <%= link_to "Logout", logout_path if session %>
+      <% if logged_in? %>
+        <%= link_to "All Workouts", workouts_path %>
+        <%= link_to "Logout", logout_path %>
+        <%= link_to "New Workout", new_workout_path %>
+        <%= link_to "Profile", user_path(current_user) %>
+      <% end %><br>
+
+      <h3> <%= info %></h3>
     </nav>
 
     

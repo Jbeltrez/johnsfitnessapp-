@@ -2,3 +2,4 @@ Welcome to John's Fitness Tracker<br>
 <%= flash[:error] if flash[:error]%><br> 
 <h2><%= link_to "Login", login_path %> </h2>
 <h2><%= link_to "Sign Up", signup_path %> </h2>
+<h2><%= link_to('Log in with Facebook!', '/auth/facebook', method: :post) %></h2>

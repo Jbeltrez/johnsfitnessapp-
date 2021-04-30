@@ -2,6 +2,7 @@
 <%= form_for(@exercise) do |f| %>
 <%= f.hidden_field :workout_id, value: @exercise.workout_id %> 
 
+
 <%= f.label :name%>
 <%= f.text_field :name%><br>
 <%= f.label :quantity %>
@@ -10,6 +11,6 @@
 <%= f.label :sets %>
 <%= f.number_field :sets%><br>
 <%= f.label :difficulty_level %>
-<%= f.select :difficulty_level, options_for_select([['beginner', 'beginner'], ['intermediate', 'intermediate'], ['advanced', 'advanced']])%>
-<%= f.submit %> 
+<%= f.select :difficulty_level, options_for_select([['beginner', 'beginner'], ['intermediate', 'intermediate'], ['advanced', 'advanced']])%><br>
+<%= f.submit "Add to '#{Workout.find_by(id: params[:workout_id]).name}'"%> 
 <% end %> 
