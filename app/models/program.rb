@@ -1,3 +1,0 @@
-class Program < ApplicationRecord
-     
-end
