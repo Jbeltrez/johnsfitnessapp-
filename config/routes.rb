@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post '/signup' => 'users#create'
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
-
+  get 'auth/facebook/callback', to: 'sessions#createe'
   get '/logout', to: "sessions#destroy"
   resources :users, only: [:show, :new, :edit, :update, :create]
 
@@ -15,13 +15,12 @@ Rails.application.routes.draw do
   end
 
   resources :categories do 
-    resources :exercises
+
     resources :workouts 
   end
   #only an index for a users workouts 
   #nested resource you want a workout 
   resources :exercises
-
   
   # default route 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
